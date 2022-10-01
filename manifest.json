@@ -1,0 +1,20 @@
+{
+  "name": "Twitch Tokyo Server Fix Tool",
+  "description": "Twitch Tokyo Server Fix Tool",
+  "icons": {
+    "128": "images/icon.png"
+  },
+  "manifest_version": 2,
+  "background": {
+    "scripts": ["js/index.js"],
+    "persistent": true
+  },
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "https://api.twitch.tyo.kwabang.net/*",
+    "https://*.twitch.tv/*",
+    "https://usher.ttvnw.net/*"
+  ],
+  "version": "1.0"
+}
