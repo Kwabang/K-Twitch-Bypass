@@ -1,2 +1,2 @@
 # Twitch Tokyo Server Fix Tool
- Chrome extension to fix Twitch Tokyo
+ Browser extension to fix Twitch Tokyo
