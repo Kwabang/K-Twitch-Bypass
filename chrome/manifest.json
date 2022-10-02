@@ -4,17 +4,16 @@
   "icons": {
     "128": "images/icon.png"
   },
-  "manifest_version": 2,
+  "manifest_version": 3,
   "background": {
-    "scripts": ["js/index.js"],
-    "persistent": true
+    "service_worker": "js/index.js"
   },
   "permissions": [
-    "webRequest",
-    "webRequestBlocking",
-    "https://api.twitch.tyo.kwabang.net/*",
+    "declarativeNetRequest"
+  ],
+  "host_permissions": [
     "https://*.twitch.tv/*",
     "https://usher.ttvnw.net/*"
   ],
-  "version": "1.1"
+  "version": "2.0"
 }
