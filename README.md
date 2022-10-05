@@ -16,11 +16,13 @@ https://user-images.githubusercontent.com/55907150/194024485-b0166ff8-dd01-4096-
 #### 상세 과정
 1. 본 레포지토리의 [Releases](https://github.com/Kwabang/Twitch-Tokyo-Server-Fix-Tool/releases)에서 최신 버전의 확장 프로그램을 내려받습니다.
 2. 내려받은 확장 프로그램의 압축을 해제합니다.
-<img width="316" alt="image" src="https://user-images.githubusercontent.com/55907150/194024969-f3feac42-e818-47dc-8212-99d5df193f1c.png">
+    
+    <img width="316" alt="image" src="https://user-images.githubusercontent.com/55907150/194024969-f3feac42-e818-47dc-8212-99d5df193f1c.png">
 3. `chrome://extensions`에 방문한 후 **개발자 모드**를 활성화합니다.
-<img width="526" alt="image" src="https://user-images.githubusercontent.com/55907150/194025201-4c4de73d-e981-4f76-a9d6-0400d76de0b6.png">
-4. *압축해제된 확장 프로그램을 로드합니다.*를 누르고 2단계에서 압축을 해제한 확장 프로그램의 디렉토리(폴더)를 선택합니다.
-5. 불러와진 압축 프로그램을 활성화합니다.
+    
+    <img width="526" alt="image" src="https://user-images.githubusercontent.com/55907150/194025201-4c4de73d-e981-4f76-a9d6-0400d76de0b6.png">
+5. *압축해제된 확장 프로그램을 로드합니다.*를 누르고 2단계에서 압축을 해제한 확장 프로그램의 디렉토리(폴더)를 선택합니다.
+6. 불러와진 압축 프로그램을 활성화합니다.
 
 # English
 ## Install
