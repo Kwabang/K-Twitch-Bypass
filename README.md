@@ -10,10 +10,10 @@ If you use an ISP that does not have a good overseas network, you may experience
 # 한국어
 ## 설치하기
 ### Chromium 기반 브라우저 (Chrome, Whale, Edge, Opera, Brave 등)
-Chromium 기반 브라우저 환경 (Chrome, Whale, Edge, Opera, Brave 등)에서는 [Chrome 웹 스토어](https://chrome.google.com/webstore/detail/twitch-tokyo-server-fix-t/hohebaajomacpbgjdfjkinekpbfelege/related?hl=ko)를 방문하여 내려받을 수 있습니다.
+[Chrome 웹 스토어](https://chrome.google.com/webstore/detail/twitch-tokyo-server-fix-t/hohebaajomacpbgjdfjkinekpbfelege/related?hl=ko)를 방문하여 내려받을 수 있습니다.
 
 ### Firefox 등 Gecko 기반 브라우저
-Firefox 등 Gecko 기반 브라우저 환경에서는 [Firefox 웹 스토어](https://addons.mozilla.org/ko/firefox/addon/twitch-tokyo-server-fix-tool/)를 방문하여 내려받을 수 있습니다.
+[Add-Ons for Firefox](https://addons.mozilla.org/ko/firefox/addon/twitch-tokyo-server-fix-tool/)를 방문하여 내려받을 수 있습니다.
 
 # English
 ## Install
@@ -21,7 +21,7 @@ Firefox 등 Gecko 기반 브라우저 환경에서는 [Firefox 웹 스토어](ht
 You can install this extension by heading over to the [Chrome Web Store](https://chrome.google.com/webstore/detail/twitch-tokyo-server-fix-t/hohebaajomacpbgjdfjkinekpbfelege/related?hl=ko).
 
 ### Gecko-Based Browser, including Firefox and Pale Moon
-You can install this extension by heading over to the [Firefox Web Store](https://addons.mozilla.org/ko/firefox/addon/twitch-tokyo-server-fix-tool/).
+You can install this extension by heading over to the [Add-Ons for Firefox](https://addons.mozilla.org/ko/firefox/addon/twitch-tokyo-server-fix-tool/).
 
 ## Contribution
 본 프로젝트는 풀 리퀘스트를 통한 기여를 받고 있습니다.
