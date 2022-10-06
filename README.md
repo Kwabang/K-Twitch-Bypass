@@ -11,17 +11,13 @@ If you use an ISP that does not have a good overseas network, you may experience
 ## 설치하기
 ### Chromium 기반 브라우저 (Chrome, Whale, Edge, Opera, Brave 등)
 #### Chrome 웹 스토어에서 내려받기
-현재 Chrome 웹 스토어 심사가 진행 중입니다. 아래 *직접 설치하기*의 과정을 따라주세요.
+[Chrome 웹 스토어](https://chrome.google.com/webstore/detail/twitch-tokyo-server-fix-t/hohebaajomacpbgjdfjkinekpbfelege/related?hl=ko)에서 내려받을 수 있습니다.
 
 #### 직접 설치하기
 https://user-images.githubusercontent.com/55907150/194024485-b0166ff8-dd01-4096-aa66-53a677f7c575.mp4
 1. 본 레포지토리의 [Releases](https://github.com/Kwabang/Twitch-Tokyo-Server-Fix-Tool/releases)에서 최신 버전의 확장 프로그램을 내려받습니다.
 2. 내려받은 확장 프로그램의 압축을 해제합니다.
-    
-    <img width="316" alt="image" src="https://user-images.githubusercontent.com/55907150/194024969-f3feac42-e818-47dc-8212-99d5df193f1c.png">
 3. `chrome://extensions`에 방문한 후 **개발자 모드**를 활성화합니다.
-    
-    <img width="526" alt="image" src="https://user-images.githubusercontent.com/55907150/194025201-4c4de73d-e981-4f76-a9d6-0400d76de0b6.png">
 4. *압축해제된 확장 프로그램을 로드합니다.*를 누르고 2단계에서 압축을 해제한 확장 프로그램의 디렉토리(폴더)를 선택합니다.
 5. 불러와진 압축 프로그램을 활성화합니다.
 
