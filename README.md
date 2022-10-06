@@ -29,7 +29,7 @@ https://user-images.githubusercontent.com/55907150/194024485-b0166ff8-dd01-4096-
 ## Install
 ### Chromium-Based Browsers, including Chrome, Edge, Opera, and Brave
 #### Installing via Chrome Web Store
-As the Chrome Web Store review is in progress, please follow the manual installation process below.
+You can now install this extension by heading over to [Chrome Web Store](https://chrome.google.com/webstore/detail/twitch-tokyo-server-fix-t/hohebaajomacpbgjdfjkinekpbfelege/related?hl=ko).
 
 #### Manual Installation
 1. Download the latest version of the extension at the [Releases](https://github.com/Kwabang/Twitch-Tokyo-Server-Fix-Tool/releases) section.
