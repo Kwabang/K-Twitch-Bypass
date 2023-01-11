@@ -6,7 +6,7 @@ chrome.runtime.onInstalled.addListener(() => {
       action: {
         type: 'redirect',
         redirect: {
-          regexSubstitution: 'https://api.twitch.tyo.kwabang.net/hls-raw/\\1',
+          regexSubstitution: 'https://api.twitch.hkg.kwabang.net/hls-raw/\\1',
         }
       },
       condition: {
