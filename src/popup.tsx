@@ -1,6 +1,7 @@
 import iconHref from 'data-base64:~assets/icon.png'
 
 import { Link } from '~components/link'
+import { ToggleButton } from '~components/toggle'
 
 import { styled } from './libs/stitches'
 
@@ -8,7 +9,7 @@ import './styles/common.css'
 import './styles/fonts.css'
 
 const Container = styled('div', {
-  minWidth: '400px',
+  minWidth: '320px',
   display: 'flex',
   flexDirection: 'column',
   alignContent: 'center',
@@ -43,9 +44,23 @@ const HeaderText = styled('span', {
 
 const Content = styled('div', {
   minHeight: 300,
+  padding: '2em 1.5em',
+})
+
+const ToggleArea = styled('div', {
+  display: 'flex',
+  fontSize: '1rem',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+})
+
+const ToggleLabel = styled('label', {
+  cursor: 'pointer',
+  userSelect: 'none',
 })
 
 const Footer = styled('div', {
+  borderTop: '1px solid $gray3',
   color: '$gray11',
   padding: '2em 0',
   textAlign: 'center',
@@ -59,7 +74,12 @@ function IndexPopup() {
         <HeaderText type="bold">K-Twitch </HeaderText>&nbsp;
         <HeaderText type="thin">Bypass</HeaderText>
       </Header>
-      <Content></Content>
+      <Content>
+        <ToggleArea>
+          <ToggleLabel htmlFor="proxy-toggle">프록시 활성화</ToggleLabel>
+          <ToggleButton id="proxy-toggle" />
+        </ToggleArea>
+      </Content>
       <Footer>
         Made by{' '}
         <Link href="https://github.com/kwabang" target="_blank">
