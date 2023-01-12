@@ -1,6 +1,8 @@
 import * as RadixLabel from '@radix-ui/react-label'
 import iconHref from 'data-base64:~assets/icon.png'
 
+import { useStorage } from '@plasmohq/storage/hook'
+
 import { TextInput } from '~components/input'
 import { Link } from '~components/link'
 import { ToggleButton } from '~components/toggle'
@@ -20,6 +22,25 @@ const Container = styled('div', {
 const Icon = styled('img', {
   width: '40px',
   marginRight: '2px',
+})
+
+const StatusCircle = styled('div', {
+  width: '8px',
+  height: '8px',
+  borderRadius: '50%',
+  marginLeft: '6px',
+  marginBottom: '-4px',
+
+  variants: {
+    isActive: {
+      true: {
+        backgroundColor: '$violet9',
+      },
+      false: {
+        backgroundColor: '$gray7',
+      },
+    },
+  },
 })
 
 const Header = styled('div', {
@@ -85,17 +106,27 @@ const Footer = styled('div', {
 function IndexPopup() {
   globalStyles()
 
+  const [isProxyActive, setProxyState] = useStorage<boolean>(
+    'isProxyActive',
+    (state) => (state === undefined ? false : state),
+  )
+
   return (
     <Container>
       <Header>
         <Icon src={iconHref} alt="K-Twitch-Bypass" />
         <HeaderText type="bold">K-Twitch </HeaderText>&nbsp;
         <HeaderText type="thin">Bypass</HeaderText>
+        <StatusCircle isActive={isProxyActive} />
       </Header>
       <Content>
         <ToggleArea>
           <ToggleLabel htmlFor="proxy-toggle">프록시 활성화</ToggleLabel>
-          <ToggleButton id="proxy-toggle" />
+          <ToggleButton
+            checked={isProxyActive}
+            onChange={() => setProxyState(!isProxyActive)}
+            id="proxy-toggle"
+          />
         </ToggleArea>
         <InputArea>
           <InputLabel htmlFor="workers-url-input">Workers URL</InputLabel>

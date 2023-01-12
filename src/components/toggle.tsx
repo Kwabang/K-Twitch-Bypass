@@ -1,6 +1,6 @@
 // Source: https://uiverse.io/adamgiebl/grumpy-moth-36
 
-import type { HTMLAttributes } from 'react'
+import type { InputHTMLAttributes } from 'react'
 
 import { styled } from '~libs/stitches'
 
@@ -55,10 +55,10 @@ const Slider = styled('span', {
 export function ToggleButton({
   id,
   ...props
-}: HTMLAttributes<HTMLLabelElement>) {
+}: InputHTMLAttributes<HTMLInputElement>) {
   return (
-    <Label {...props}>
-      <Input id={id} type="checkbox" />
+    <Label>
+      <Input id={id} type="checkbox" {...props} />
       <Slider />
     </Label>
   )
