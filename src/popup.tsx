@@ -1,9 +1,11 @@
+import * as RadixLabel from '@radix-ui/react-label'
 import iconHref from 'data-base64:~assets/icon.png'
 
+import { TextInput } from '~components/input'
 import { Link } from '~components/link'
 import { ToggleButton } from '~components/toggle'
 
-import { styled } from './libs/stitches'
+import { globalStyles, styled } from './libs/stitches'
 
 import './styles/common.css'
 import './styles/fonts.css'
@@ -43,7 +45,6 @@ const HeaderText = styled('span', {
 })
 
 const Content = styled('div', {
-  minHeight: 300,
   padding: '2em 1.5em',
 })
 
@@ -59,6 +60,21 @@ const ToggleLabel = styled('label', {
   userSelect: 'none',
 })
 
+const InputArea = styled('div', {
+  marginTop: '2em',
+})
+
+const InputLabel = styled(RadixLabel.Root, {
+  fontSize: '0.8rem',
+  fontWeight: 500,
+  lineHeight: '180%',
+})
+
+const InputDescription = styled('div', {
+  color: '$gray11',
+  fontSize: '0.7rem',
+})
+
 const Footer = styled('div', {
   borderTop: '1px solid $gray3',
   color: '$gray11',
@@ -67,6 +83,8 @@ const Footer = styled('div', {
 })
 
 function IndexPopup() {
+  globalStyles()
+
   return (
     <Container>
       <Header>
@@ -79,11 +97,25 @@ function IndexPopup() {
           <ToggleLabel htmlFor="proxy-toggle">프록시 활성화</ToggleLabel>
           <ToggleButton id="proxy-toggle" />
         </ToggleArea>
+        <InputArea>
+          <InputLabel htmlFor="workers-url-input">Workers URL</InputLabel>
+          <InputDescription>
+            프록시 기능을 사용하기 위해{' '}
+            <Link href="" target="_blank">
+              Cloudflare Workers
+            </Link>
+            를 만들어야 합니다.
+          </InputDescription>
+          <TextInput
+            id="workers-url-input"
+            placeholder="https://proxy.ktb.workers.dev/"
+            css={{ margin: '8px 0' }}></TextInput>
+        </InputArea>
       </Content>
       <Footer>
-        Made by{' '}
-        <Link href="https://github.com/kwabang" target="_blank">
-          Kwabang
+        Sources on{' '}
+        <Link href="https://github.com/Kwabang/K-Twitch-Bypass" target="_blank">
+          Github
         </Link>
       </Footer>
     </Container>

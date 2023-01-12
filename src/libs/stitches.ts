@@ -1,11 +1,18 @@
 import * as colors from '@radix-ui/colors'
 import { createStitches } from '@stitches/react'
 
-export const { styled, css } = createStitches({
+export const { styled, css, globalCss } = createStitches({
   theme: {
     colors: {
-      ...colors.violet,
       ...colors.gray,
+      ...colors.violet,
+      ...colors.blue,
     },
+  },
+})
+
+export const globalStyles = globalCss({
+  '*': {
+    color: '$gray12',
   },
 })
