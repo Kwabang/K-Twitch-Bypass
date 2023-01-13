@@ -1,11 +1,11 @@
 import * as RadixLabel from '@radix-ui/react-label'
 import iconHref from 'data-base64:~assets/icon.png'
-
-import { useStorage } from '@plasmohq/storage/hook'
+import type { ChangeEvent } from 'react'
 
 import { TextInput } from '~components/input'
 import { Link } from '~components/link'
 import { ToggleButton } from '~components/toggle'
+import { useProxyStatus, useProxyTarget } from '~stores/storage'
 
 import { globalStyles, styled } from './libs/stitches'
 
@@ -28,8 +28,8 @@ const StatusCircle = styled('div', {
   width: '8px',
   height: '8px',
   borderRadius: '50%',
-  marginLeft: '6px',
-  marginBottom: '-4px',
+  marginLeft: '6.5px',
+  marginBottom: '-3px',
 
   variants: {
     isActive: {
@@ -107,10 +107,12 @@ const Footer = styled('div', {
 function IndexPopup() {
   globalStyles()
 
-  const [isProxyActive, setProxyState] = useStorage<boolean>(
-    'isProxyActive',
-    (state) => (state === undefined ? false : state),
-  )
+  const [isProxyActive, setProxyState] = useProxyStatus()
+  const [, setProxyTarget] = useProxyTarget()
+
+  const handleProxyTargetChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setProxyTarget({ type: 'workers', host: e.target.value })
+  }
 
   return (
     <Container>
@@ -141,6 +143,7 @@ function IndexPopup() {
           <TextInput
             id="workers-url-input"
             placeholder="https://proxy.ktb.workers.dev/"
+            onChange={handleProxyTargetChange}
             css={{ margin: '8px 0' }}></TextInput>
         </InputArea>
       </Content>
