@@ -44,6 +44,7 @@ const StatusCircle = styled('div', {
 })
 
 const Header = styled('div', {
+  userSelect: 'none',
   padding: '1.2em 0.8em',
   display: 'flex',
   alignItems: 'center',
