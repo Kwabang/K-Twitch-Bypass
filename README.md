@@ -30,9 +30,5 @@ You can install this extension by heading over to the [Add-Ons for Firefox](http
 This project is receiving contributions through pull requests.
 For major changes, first open an issue to discuss what you would like to change.
 
-## Sponsor
-본 프로젝트의 서버는 [Pluxcon Network USA LLC](https://pluxcon.network) 의 후원으로 유지되고 있습니다.
-
-The server of this project is maintained with the support of [Pluxcon Network USA LLC](https://pluxcon.network).
 ## LICENSE
 Distributed by [MIT License](https://github.com/Kwabang/K-Twitch-Bypass/blob/main/LICENSE)
