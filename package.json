@@ -35,7 +35,8 @@
       "https://*/*"
     ],
     "permissions": [
-      "tabs"
+      "tabs",
+      "declarativeNetRequest"
     ]
   }
 }

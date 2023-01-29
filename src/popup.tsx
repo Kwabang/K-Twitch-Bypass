@@ -1,12 +1,13 @@
 import * as RadixLabel from '@radix-ui/react-label'
 import iconHref from 'data-base64:~assets/icon.png'
-import type { ChangeEvent } from 'react'
+import { ChangeEvent, useEffect } from 'react'
 import isURL from 'validator/lib/isURL'
 
 import { TextInput } from '~components/input'
 import { Link } from '~components/link'
 import { ToggleButton } from '~components/toggle'
 import { useProxyStatus, useProxyTarget } from '~stores/storage'
+import { disableProxy, enableProxy } from '~utils/control-proxy'
 
 import { globalStyles, styled } from './libs/stitches'
 
@@ -111,6 +112,19 @@ function IndexPopup() {
   const [isProxyActive, setProxyState] = useProxyStatus()
   const [proxyTarget, setProxyTarget] = useProxyTarget()
 
+  useEffect(() => {
+    if (isProxyActive) {
+      enableProxy()
+    } else {
+      disableProxy()
+    }
+  }, [isProxyActive])
+
+  const handleProxyStateChange = () => {
+    setProxyState(!isProxyActive)
+    chrome.tabs.reload()
+  }
+
   const handleProxyTargetChange = (e: ChangeEvent<HTMLInputElement>) => {
     setProxyTarget({ type: 'workers', host: e.target.value })
   }
@@ -132,7 +146,7 @@ function IndexPopup() {
           <ToggleLabel htmlFor="proxy-toggle">프록시 활성화</ToggleLabel>
           <ToggleButton
             checked={isProxyActive}
-            onChange={() => setProxyState(!isProxyActive)}
+            onChange={handleProxyStateChange}
             id="proxy-toggle"
           />
         </ToggleArea>
