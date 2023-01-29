@@ -4,8 +4,8 @@ export interface Body {
   type: boolean
 }
 
-const BYPASS_RULE_ID = [1001,1002]
-const BYPASS_RULE_PRIORITY = [1,2]
+const BYPASS_RULE_ID = [1001]
+const BYPASS_RULE_PRIORITY = [1]
 
 function enableBypass() {
   return chrome.declarativeNetRequest.updateDynamicRules({
