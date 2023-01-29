@@ -1,7 +1,7 @@
 import type { PlasmoMessaging } from '@plasmohq/messaging'
 import { Storage } from '@plasmohq/storage'
 
-import type { ProxyTargetsStorage } from '~stores/storage'
+// import type { ProxyTargetsStorage } from '~stores/storage'
 
 export interface Body {
   type: boolean
@@ -59,8 +59,9 @@ export const handler: PlasmoMessaging.MessageHandler<Body> = async (
   const { type } = req.body
 
   if (type) {
-    const { host } = await storage.get<ProxyTargetsStorage>('proxyTarget')
-    return await enableProxy(host)
+    // const { host } = await storage.get<ProxyTargetsStorage>('proxyTarget')
+    // return await enableProxy(host)
+    return await enableProxy()
   }
 
   return await disableProxy()
