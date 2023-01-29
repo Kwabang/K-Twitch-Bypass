@@ -3,7 +3,6 @@ import iconHref from 'data-base64:~assets/icon.png'
 import { ChangeEvent, useEffect, useState } from 'react'
 import isURL from 'validator/lib/isURL'
 
-import { TextInput } from '~components/input'
 import { Link } from '~components/link'
 import { ToggleButton } from '~components/toggle'
 import { useProxyStatus, useProxyTarget } from '~stores/storage'
@@ -171,7 +170,7 @@ function IndexPopup() {
             id="proxy-toggle"
           />
         </ToggleArea>
-        <InputArea>
+        {/* <InputArea>
           <InputLabel htmlFor="workers-url-input">프록시 URL</InputLabel>
           <InputDescription>
             이 입력 칸이 무엇을 의미하는지 잘 모른다면, 그대로 내버려두세요.
@@ -208,7 +207,7 @@ function IndexPopup() {
             </svg>
             초깃값으로 되돌리기
           </SecondaryButton>
-        </InputArea>
+        </InputArea> */}
       </Content>
       <Footer>
         Sources on{' '}

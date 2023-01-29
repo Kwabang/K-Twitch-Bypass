@@ -21,10 +21,14 @@ function enableProxy(host = DEFAULT_PROXY_HOST) {
         id: PROXY_RULE_ID,
         priority: PROXY_RULE_PRIORITY,
         action: {
-          type: chrome.declarativeNetRequest.RuleActionType.REDIRECT,
-          redirect: {
-            regexSubstitution: `${host}/hls-raw/\\1`,
-          },
+          type: chrome.declarativeNetRequest.RuleActionType.MODIFY_HEADERS,
+          requestHeaders: [
+            {
+              operation: chrome.declarativeNetRequest.HeaderOperation.SET,
+              header: 'X-Forwarded-For',
+              value: '::1',
+            },
+          ],
         },
         condition: {
           regexFilter: '^https://usher.ttvnw.net/api/channel/hls/(.*)',
