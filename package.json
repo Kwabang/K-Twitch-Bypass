@@ -1,7 +1,7 @@
 {
   "name": "k-twitch-bypass",
   "displayName": "K-Twitch-Bypass",
-  "version": "0.0.0",
+  "version": "2.3",
   "description": "Extension to bypass Twitch quality restrictions",
   "scripts": {
     "dev": "plasmo dev",
@@ -31,7 +31,8 @@
   },
   "manifest": {
     "host_permissions": [
-      "https://*/*"
+      "https://*.twitch.tv/*",
+      "https://*.ttvnw.net/*"
     ],
     "permissions": [
       "tabs",
