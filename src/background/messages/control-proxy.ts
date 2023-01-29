@@ -12,11 +12,35 @@ const storage = new Storage()
 const PROXY_RULE_ID = 1001
 const PROXY_RULE_PRIORITY = 1
 
+const PROXY_QUERY_TRANSFORM_ID = 1002
+const PROXY_QUERY_TRANSFORM_PRIORITY = 1
+
 const DEFAULT_PROXY_HOST = 'https://api.twitch.tyo.kwabang.net'
 
 function enableProxy(host = DEFAULT_PROXY_HOST) {
   return chrome.declarativeNetRequest.updateDynamicRules({
     addRules: [
+      {
+        id: PROXY_QUERY_TRANSFORM_ID,
+        priority: PROXY_QUERY_TRANSFORM_PRIORITY,
+        action: {
+          type: chrome.declarativeNetRequest.RuleActionType.REDIRECT,
+          redirect: {
+            transform: {
+              queryTransform: {
+                removeParams: ['reassignments_supported'],
+              },
+            },
+          },
+        },
+        condition: {
+          regexFilter: '^https://usher.ttvnw.net/api/channel/hls/(.*)',
+          resourceTypes: [
+            chrome.declarativeNetRequest.ResourceType.XMLHTTPREQUEST,
+          ],
+        },
+      },
+
       {
         id: PROXY_RULE_ID,
         priority: PROXY_RULE_PRIORITY,
@@ -43,7 +67,7 @@ function enableProxy(host = DEFAULT_PROXY_HOST) {
 
 function disableProxy() {
   return chrome.declarativeNetRequest.updateDynamicRules({
-    removeRuleIds: [PROXY_RULE_ID],
+    removeRuleIds: [PROXY_RULE_ID, PROXY_QUERY_TRANSFORM_ID],
   })
 }
 
