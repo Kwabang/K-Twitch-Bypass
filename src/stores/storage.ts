@@ -7,15 +7,8 @@ export interface ProxyTargetsStorage {
   host: string
 }
 
-export function useProxyStatus() {
-  return useStorage<boolean>('isProxyActive', (state) =>
+export function useBypassStatus() {
+  return useStorage<boolean>('isBypassActive', (state) =>
     state === undefined ? false : state,
   )
-}
-
-export function useProxyTarget() {
-  return useStorage<ProxyTargetsStorage>('proxyTarget', {
-    type: 'workers',
-    host: 'https://api.twitch.tyo.kwabang.net',
-  })
 }

@@ -1,12 +1,11 @@
 import * as RadixLabel from '@radix-ui/react-label'
 import iconHref from 'data-base64:~assets/icon.png'
 import { ChangeEvent, useEffect, useState } from 'react'
-import isURL from 'validator/lib/isURL'
 
 import { Link } from '~components/link'
 import { ToggleButton } from '~components/toggle'
-import { useProxyStatus, useProxyTarget } from '~stores/storage'
-import { disableProxy, enableProxy } from '~utils/control-proxy'
+import { useBypassStatus } from '~stores/storage'
+import { disableBypass, enableBypass } from '~utils/control-bypass'
 
 import { globalStyles, styled } from './libs/stitches'
 
@@ -120,20 +119,18 @@ const Footer = styled('div', {
 function IndexPopup() {
   globalStyles()
 
-  const [isProxyActive, setProxyState] = useProxyStatus()
-  const [proxyTarget, setProxyTarget] = useProxyTarget()
-  const [isProxyUrlValid, setProxyUrlValid] = useState<boolean>()
+  const [isBypassActive,setBypassState] = useBypassStatus()
 
   useEffect(() => {
-    if (isProxyActive) {
-      enableProxy()
+    if (isBypassActive) {
+      enableBypass()
     } else {
-      disableProxy()
+      disableBypass()
     }
-  }, [isProxyActive])
+  }, [isBypassActive])
 
-  const handleProxyStateChange = () => {
-    setProxyState(!isProxyActive)
+  const handleBypassStateChange = () => {
+    setBypassState(!isBypassActive)
 
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const activeTab = tabs[0]
@@ -144,14 +141,6 @@ function IndexPopup() {
     })
   }
 
-  const handleProxyTargetChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setProxyTarget({ type: 'workers', host: e.target.value })
-  }
-
-  useEffect(() => {
-    const isValid = isURL(proxyTarget.host, { require_protocol: true })
-    setProxyUrlValid(isValid)
-  }, [proxyTarget.host])
 
   return (
     <Container>
@@ -159,15 +148,15 @@ function IndexPopup() {
         <Icon src={iconHref} alt="K-Twitch-Bypass" />
         <HeaderText type="bold">K-Twitch </HeaderText>&nbsp;
         <HeaderText type="thin">Bypass</HeaderText>
-        <StatusCircle isActive={isProxyActive} />
+        <StatusCircle isActive={isBypassActive} />
       </Header>
       <Content>
         <ToggleArea>
-          <ToggleLabel htmlFor="proxy-toggle">프록시 활성화</ToggleLabel>
+          <ToggleLabel htmlFor="bypass-toggle">우회 활성화</ToggleLabel>
           <ToggleButton
-            checked={isProxyActive}
-            onChange={handleProxyStateChange}
-            id="proxy-toggle"
+            checked={isBypassActive}
+            onChange={handleBypassStateChange}
+            id="bypass-toggle"
           />
         </ToggleArea>
         {/* <InputArea>
