@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@plasmohq/messaging': ^0.0.2
   '@plasmohq/prettier-plugin-sort-imports': 3.6.1
   '@plasmohq/storage': ^0.14.0
   '@radix-ui/colors': ^0.1.8
@@ -19,6 +20,7 @@ specifiers:
   validator: ^13.7.0
 
 dependencies:
+  '@plasmohq/messaging': 0.0.2_react@18.2.0
   '@plasmohq/storage': 0.14.0_react@18.2.0
   '@radix-ui/colors': 0.1.8
   '@radix-ui/react-label': 2.0.0_biqbaboplfbrettd7655fr4n2y
@@ -1597,6 +1599,18 @@ packages:
 
   /@plasmohq/init/0.5.3:
     resolution: {integrity: sha512-LA6dfrBsLSgdOhgLJr8asBcs6gQd9ehb436DU2c1XecjYEmh5vkEr/YjxyECOg7Iz/AdtfUuBXEjH3GGS6qOMg==}
+    dev: false
+
+  /@plasmohq/messaging/0.0.2_react@18.2.0:
+    resolution: {integrity: sha512-dM4dCfOKnIoMXkzG2N+IKCi+b/YFa6tpEZjMf4R8N5xWILI3Xwu2UMLz+TRRrc4XLJvVpFdL09IeGDh14E+Fvg==}
+    peerDependencies:
+      react: ^16.8.6 || ^17 || ^18
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      webextension-polyfill: 0.10.0
     dev: false
 
   /@plasmohq/parcel-bundler/0.4.5:
