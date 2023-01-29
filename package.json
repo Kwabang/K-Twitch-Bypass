@@ -2,8 +2,7 @@
   "name": "k-twitch-bypass",
   "displayName": "K-Twitch-Bypass",
   "version": "0.0.0",
-  "description": "A basic Plasmo extension.",
-  "author": "lincroe",
+  "description": "Extension to bypass Twitch quality restrictions",
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
