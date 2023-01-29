@@ -5,9 +5,10 @@ import { Storage } from '@plasmohq/storage'
 import type { ProxyTargetsStorage } from '~stores/storage'
 
 const storage = new Storage()
-const { host } = await storage.get<ProxyTargetsStorage>('proxyTarget')
 
-function updateRules() {
+async function updateRules() {
+  const { host } = await storage.get<ProxyTargetsStorage>('proxyTarget')
+
   chrome.declarativeNetRequest.updateDynamicRules({
     addRules: [
       {

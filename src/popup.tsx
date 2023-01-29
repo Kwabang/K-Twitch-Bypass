@@ -1,6 +1,7 @@
 import * as RadixLabel from '@radix-ui/react-label'
 import iconHref from 'data-base64:~assets/icon.png'
 import type { ChangeEvent } from 'react'
+import isURL from 'validator/lib/isURL'
 
 import { TextInput } from '~components/input'
 import { Link } from '~components/link'
@@ -108,11 +109,15 @@ function IndexPopup() {
   globalStyles()
 
   const [isProxyActive, setProxyState] = useProxyStatus()
-  const [, setProxyTarget] = useProxyTarget()
+  const [proxyTarget, setProxyTarget] = useProxyTarget()
 
   const handleProxyTargetChange = (e: ChangeEvent<HTMLInputElement>) => {
     setProxyTarget({ type: 'workers', host: e.target.value })
   }
+
+  try {
+    const isValid = isURL(proxyTarget.host, {})
+  } catch (error) {}
 
   return (
     <Container>
