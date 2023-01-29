@@ -14,5 +14,8 @@ export function useProxyStatus() {
 }
 
 export function useProxyTarget() {
-  return useStorage<ProxyTargetsStorage>('proxyTarget')
+  return useStorage<ProxyTargetsStorage>('proxyTarget', {
+    type: 'workers',
+    host: 'https://api.twitch.tyo.kwabang.net',
+  })
 }

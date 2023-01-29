@@ -1,6 +1,6 @@
 import * as RadixLabel from '@radix-ui/react-label'
 import iconHref from 'data-base64:~assets/icon.png'
-import { ChangeEvent, useEffect } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import isURL from 'validator/lib/isURL'
 
 import { TextInput } from '~components/input'
@@ -99,6 +99,18 @@ const InputDescription = styled('div', {
   fontSize: '0.7rem',
 })
 
+const SecondaryButton = styled('button', {
+  color: '$gray11',
+  background: 'none',
+  border: 0,
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '2px',
+  fontSize: '0.65rem',
+  marginLeft: '-7px',
+})
+
 const Footer = styled('div', {
   borderTop: '1px solid $gray3',
   color: '$gray11',
@@ -111,6 +123,7 @@ function IndexPopup() {
 
   const [isProxyActive, setProxyState] = useProxyStatus()
   const [proxyTarget, setProxyTarget] = useProxyTarget()
+  const [isProxyUrlValid, setProxyUrlValid] = useState<boolean>()
 
   useEffect(() => {
     if (isProxyActive) {
@@ -122,16 +135,24 @@ function IndexPopup() {
 
   const handleProxyStateChange = () => {
     setProxyState(!isProxyActive)
-    chrome.tabs.reload()
+
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      const activeTab = tabs[0]
+
+      if (activeTab.url.startsWith('https://www.twitch.tv')) {
+        chrome.tabs.reload()
+      }
+    })
   }
 
   const handleProxyTargetChange = (e: ChangeEvent<HTMLInputElement>) => {
     setProxyTarget({ type: 'workers', host: e.target.value })
   }
 
-  try {
-    const isValid = isURL(proxyTarget.host, {})
-  } catch (error) {}
+  useEffect(() => {
+    const isValid = isURL(proxyTarget.host, { require_protocol: true })
+    setProxyUrlValid(isValid)
+  }, [proxyTarget.host])
 
   return (
     <Container>
@@ -151,19 +172,42 @@ function IndexPopup() {
           />
         </ToggleArea>
         <InputArea>
-          <InputLabel htmlFor="workers-url-input">Workers URL</InputLabel>
+          <InputLabel htmlFor="workers-url-input">프록시 URL</InputLabel>
           <InputDescription>
-            프록시 기능을 사용하기 위해{' '}
-            <Link href="" target="_blank">
-              Cloudflare Workers
-            </Link>
-            를 만들어야 합니다.
+            이 입력 칸이 무엇을 의미하는지 잘 모른다면, 그대로 내버려두세요.
           </InputDescription>
           <TextInput
             id="workers-url-input"
-            placeholder="https://proxy.ktb.workers.dev/"
+            value={proxyTarget.host}
             onChange={handleProxyTargetChange}
-            css={{ margin: '8px 0' }}></TextInput>
+            css={{ margin: '8px 0' }}
+            type={!isProxyUrlValid ? 'warning' : 'normal'}></TextInput>
+          {!isProxyUrlValid && (
+            <InputDescription css={{ color: '$red9', marginBottom: '4px' }}>
+              올바르지 않은 URL입니다.
+            </InputDescription>
+          )}
+          <SecondaryButton
+            onClick={() =>
+              setProxyTarget((targets) => ({
+                ...targets,
+                host: 'https://api.twitch.tyo.kwabang.net',
+              }))
+            }>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="12"
+              height="12"
+              fill="#6f6f6f"
+              viewBox="0 0 16 16">
+              <path
+                fill-rule="evenodd"
+                d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"
+              />
+              <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z" />
+            </svg>
+            초깃값으로 되돌리기
+          </SecondaryButton>
         </InputArea>
       </Content>
       <Footer>
