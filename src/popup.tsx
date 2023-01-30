@@ -1,10 +1,11 @@
-import * as RadixLabel from '@radix-ui/react-label'
+import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons'
 import iconHref from 'data-base64:~assets/icon.png'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { Link } from '~components/link'
+import * as Select from '~components/select'
 import { ToggleButton } from '~components/toggle'
-import { useBypassStatus } from '~stores/storage'
+import { ISPListStorage, useBypassISP, useBypassStatus } from '~stores/storage'
 import { disableBypass, enableBypass } from '~utils/control-bypass'
 
 import { globalStyles, styled } from './libs/stitches'
@@ -66,6 +67,21 @@ const HeaderText = styled('span', {
   },
 })
 
+const AreaHeaderContainer = styled('div', {
+  margin: '0.5em 0',
+})
+
+const AreaHeader = styled('div', {
+  fontSize: '0.8rem',
+  fontWeight: '600',
+})
+
+const AreaSecondaryHeader = styled('div', {
+  fontSize: '0.7rem',
+  fontWeight: '400',
+  color: '$gray11',
+})
+
 const Content = styled('div', {
   padding: '2em 1.5em',
 })
@@ -82,31 +98,9 @@ const ToggleLabel = styled('label', {
   userSelect: 'none',
 })
 
-const InputArea = styled('div', {
+const SelectArea = styled('div', {
+  width: '100%',
   marginTop: '2em',
-})
-
-const InputLabel = styled(RadixLabel.Root, {
-  fontSize: '0.8rem',
-  fontWeight: 500,
-  lineHeight: '180%',
-})
-
-const InputDescription = styled('div', {
-  color: '$gray11',
-  fontSize: '0.7rem',
-})
-
-const SecondaryButton = styled('button', {
-  color: '$gray11',
-  background: 'none',
-  border: 0,
-  cursor: 'pointer',
-  display: 'flex',
-  alignItems: 'center',
-  gap: '2px',
-  fontSize: '0.65rem',
-  marginLeft: '-7px',
 })
 
 const Footer = styled('div', {
@@ -119,7 +113,8 @@ const Footer = styled('div', {
 function IndexPopup() {
   globalStyles()
 
-  const [isBypassActive,setBypassState] = useBypassStatus()
+  const [isBypassActive, setBypassState] = useBypassStatus()
+  const [currentISP, setCurrentISP] = useBypassISP()
 
   useEffect(() => {
     if (isBypassActive) {
@@ -141,6 +136,9 @@ function IndexPopup() {
     })
   }
 
+  const handleISPSelectChange = (value: string) => {
+    setCurrentISP(value as ISPListStorage)
+  }
 
   return (
     <Container>
@@ -159,44 +157,43 @@ function IndexPopup() {
             id="bypass-toggle"
           />
         </ToggleArea>
-        {/* <InputArea>
-          <InputLabel htmlFor="workers-url-input">프록시 URL</InputLabel>
-          <InputDescription>
-            이 입력 칸이 무엇을 의미하는지 잘 모른다면, 그대로 내버려두세요.
-          </InputDescription>
-          <TextInput
-            id="workers-url-input"
-            value={proxyTarget.host}
-            onChange={handleProxyTargetChange}
-            css={{ margin: '8px 0' }}
-            type={!isProxyUrlValid ? 'warning' : 'normal'}></TextInput>
-          {!isProxyUrlValid && (
-            <InputDescription css={{ color: '$red9', marginBottom: '4px' }}>
-              올바르지 않은 URL입니다.
-            </InputDescription>
-          )}
-          <SecondaryButton
-            onClick={() =>
-              setProxyTarget((targets) => ({
-                ...targets,
-                host: 'https://api.twitch.tyo.kwabang.net',
-              }))
-            }>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="12"
-              height="12"
-              fill="#6f6f6f"
-              viewBox="0 0 16 16">
-              <path
-                fill-rule="evenodd"
-                d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"
-              />
-              <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z" />
-            </svg>
-            초깃값으로 되돌리기
-          </SecondaryButton>
-        </InputArea> */}
+        <SelectArea>
+          <AreaHeaderContainer>
+            <AreaHeader>ISP 선택</AreaHeader>
+            <AreaSecondaryHeader>
+              이용중인 ISP에 따라 트위치의 서버가 선택됩니다. 기본값은
+              '자동'입니다.
+            </AreaSecondaryHeader>
+          </AreaHeaderContainer>
+          <Select.Root onValueChange={handleISPSelectChange} value={currentISP}>
+            <Select.Trigger aria-label="ISP">
+              <Select.Value placeholder="ISP 선택..." />
+              <Select.Icon>
+                <ChevronDownIcon />
+              </Select.Icon>
+            </Select.Trigger>
+            <Select.Portal>
+              <Select.Content>
+                <Select.ScrollUpButton>
+                  <ChevronUpIcon />
+                </Select.ScrollUpButton>
+                <Select.Viewport>
+                  <Select.Group>
+                    <Select.Label>ISPs</Select.Label>
+                    <Select.Item value="auto">자동</Select.Item>
+                    <Select.Item value="kt">KT</Select.Item>
+                    <Select.Item value="skb">SKB</Select.Item>
+                    <Select.Item value="lg">LGU+</Select.Item>
+                    <Select.Item value="others">기타</Select.Item>
+                  </Select.Group>
+                </Select.Viewport>
+                <Select.ScrollDownButton>
+                  <ChevronDownIcon />
+                </Select.ScrollDownButton>
+              </Select.Content>
+            </Select.Portal>
+          </Select.Root>
+        </SelectArea>
       </Content>
       <Footer>
         Sources on{' '}
