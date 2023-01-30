@@ -33,7 +33,7 @@ function enableBypass() {
 
 function disableBypass() {
   return chrome.declarativeNetRequest.updateDynamicRules({
-    removeRuleIds: BYPASS_RULE_ID,
+    removeRuleIds: BYPASS_RULE_ID[0],
   })
 }
 
