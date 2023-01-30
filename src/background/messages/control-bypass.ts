@@ -1,56 +1,85 @@
 import type { PlasmoMessaging } from '@plasmohq/messaging'
+import { Storage } from '@plasmohq/storage'
+
+import type { ISPListStorage } from '~stores/storage'
 
 export interface Body {
   type: boolean
 }
+
+interface ISPAPIBody {
+  autonomous_system_number: number
+  autonomous_system_organization: string
+}
+
+enum CDNType {
+  kt = 'limelight_kt',
+  skb = 'limelight_sk',
+  lg = 'limelight_lg',
+  others = 'akamai_korea',
+}
+
+const storage = new Storage()
 
 const BYPASS_RULE_ID = [1001, 1002]
 const BYPASS_RULE_PRIORITY = [1, 2]
 
 const ISP_API_ENDPOINT = 'https://api.kwabang.net/isp'
 
-async function enableBypass() {
-  let segmentNode: string
-  let response: Response
+async function getCurrentCDN(): Promise<CDNType> {
+  let segmentNode: CDNType = CDNType.others
+
   try {
-    response = await fetch(ISP_API_ENDPOINT)
-    response = await response.json()
-    switch (response['autonomous_system_number']) {
+    const res = await fetch(ISP_API_ENDPOINT)
+    const data = (await res.json()) as ISPAPIBody
+
+    switch (data['autonomous_system_number']) {
       case 4766: // KT
-        segmentNode = 'limelight_kt'
+        segmentNode = CDNType.kt
         break
       case 9318: // SKB
-        segmentNode = 'limelight_sk'
+        segmentNode = CDNType.skb
         break
       case 3786: // LG
-        segmentNode = 'limelight_lg'
+        segmentNode = CDNType.lg
         break
-      default: // Other ISPs
-        segmentNode = 'akamai_korea'
     }
   } catch (error) {
     console.error(error)
-    segmentNode = 'akamai_korea'
+  }
+
+  return segmentNode
+}
+
+async function enableBypass() {
+  const configuredISP = await storage.get<ISPListStorage>('bypassISPList')
+  let currentCDN: CDNType = CDNType[configuredISP]
+
+  if (configuredISP === 'auto') {
+    currentCDN = await getCurrentCDN()
   }
 
   return chrome.declarativeNetRequest.updateDynamicRules({
-    addRules: [{
+    addRules: [
+      {
         id: BYPASS_RULE_ID[0],
         priority: BYPASS_RULE_PRIORITY[0],
         action: {
           type: chrome.declarativeNetRequest.RuleActionType.MODIFY_HEADERS,
-          requestHeaders: [{
-            operation: chrome.declarativeNetRequest.HeaderOperation.SET,
-            header: 'X-Forwarded-For',
-            value: '::1',
-          }]
+          requestHeaders: [
+            {
+              operation: chrome.declarativeNetRequest.HeaderOperation.SET,
+              header: 'X-Forwarded-For',
+              value: '::1',
+            },
+          ],
         },
         condition: {
           regexFilter: '^https://usher.ttvnw.net/api/channel/hls/(.*)',
           resourceTypes: [
             chrome.declarativeNetRequest.ResourceType.XMLHTTPREQUEST,
-          ]
-        }
+          ],
+        },
       },
       {
         id: BYPASS_RULE_ID[1],
@@ -60,22 +89,24 @@ async function enableBypass() {
           redirect: {
             transform: {
               queryTransform: {
-                addOrReplaceParams: [{
-                  key: 'force_segment_node',
-                  value: segmentNode
-                }]
-              }
-            }
-          }
+                addOrReplaceParams: [
+                  {
+                    key: 'force_segment_node',
+                    value: currentCDN,
+                  },
+                ],
+              },
+            },
+          },
         },
         condition: {
           regexFilter: '^https://usher.ttvnw.net/api/channel/hls/(.*)',
           resourceTypes: [
             chrome.declarativeNetRequest.ResourceType.XMLHTTPREQUEST,
-          ]
-        }
-      }
-    ]
+          ],
+        },
+      },
+    ],
   })
 }
 
@@ -83,6 +114,11 @@ function disableBypass() {
   return chrome.declarativeNetRequest.updateDynamicRules({
     removeRuleIds: BYPASS_RULE_ID,
   })
+}
+
+async function reloadBypass() {
+  await disableBypass()
+  return await enableBypass()
 }
 
 export const handler: PlasmoMessaging.MessageHandler<Body> = async (
@@ -97,3 +133,7 @@ export const handler: PlasmoMessaging.MessageHandler<Body> = async (
 
   return await disableBypass()
 }
+
+storage.watch({
+  bypassISPList: () => reloadBypass(),
+})
