@@ -1,7 +1,7 @@
 {
   "name": "k-twitch-bypass",
   "displayName": "K-Twitch-Bypass",
-  "version": "2.3",
+  "version": "2.4",
   "description": "Extension to bypass Twitch quality restrictions",
   "scripts": {
     "dev": "plasmo dev",
