@@ -1,11 +1,9 @@
 # K-Twitch-Bypass
 한국 트위치의 720p 영상 화질 제한을 우회하기 위한 브라우저 확장 프로그램으로, 현재 Chromium과 Firefox 기반 브라우저를 지원합니다.
-VPN/프록시를 통한 연결과는 달리 프록시를 통해 HLS 서버가 일본에서 접속 중인 것으로 판단하게 만들고, 스트리밍 서버와의 연결은 VPN/프록시를 거치지 않습니다.
-해외망 이용이 원활하지 않은 ISP를 사용할 경우 속도 저하 현상이 발생할 수 있습니다.
+트위치에 영상 정보를 요청할 때 CDN 서버를 변경하는 로직을 포함하여 한국 제한이 걸리지 않는 CDN 서버로 연결 시킵니다.
 
 This is a browser extension to bypass the 720p video quality limit of Twitch in Korea. It is currently supported in Chromium and Firefox-based browsers.
-Unlike the connection via VPN/proxy, this extension makes the Twitch HLS server determine that you are connecting from Japan (by connecting from a proxy) and makes a direct connection to the actual streaming server without passing through the VPN/proxy network.
-If you use an ISP that does not have a good overseas network, you may experience a slowdown in speed.
+When requesting streaming data to Twitch, add the logic to change the CDN server, connects to the CDN server that does not apply to video quality limit in Korea.
 
 # 한국어
 ## 설치하기
