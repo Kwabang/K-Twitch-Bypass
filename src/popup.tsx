@@ -1,4 +1,3 @@
-import * as RadixLabel from '@radix-ui/react-label'
 import iconHref from 'data-base64:~assets/icon.png'
 import { useEffect } from 'react'
 
@@ -80,33 +79,6 @@ const ToggleArea = styled('div', {
 const ToggleLabel = styled('label', {
   cursor: 'pointer',
   userSelect: 'none',
-})
-
-const InputArea = styled('div', {
-  marginTop: '2em',
-})
-
-const InputLabel = styled(RadixLabel.Root, {
-  fontSize: '0.8rem',
-  fontWeight: 500,
-  lineHeight: '180%',
-})
-
-const InputDescription = styled('div', {
-  color: '$gray11',
-  fontSize: '0.7rem',
-})
-
-const SecondaryButton = styled('button', {
-  color: '$gray11',
-  background: 'none',
-  border: 0,
-  cursor: 'pointer',
-  display: 'flex',
-  alignItems: 'center',
-  gap: '2px',
-  fontSize: '0.65rem',
-  marginLeft: '-7px',
 })
 
 const Footer = styled('div', {
