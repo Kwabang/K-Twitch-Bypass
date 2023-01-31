@@ -180,7 +180,7 @@ function IndexPopup() {
                 <Select.Viewport>
                   <Select.Group>
                     <Select.Label>ISPs</Select.Label>
-                    <Select.Item value="auto">자동</Select.Item>
+                    <Select.Item value="auto">자동 (추천)</Select.Item>
                     <Select.Item value="kt">KT</Select.Item>
                     <Select.Item value="skb">SKB</Select.Item>
                     <Select.Item value="lg">LGU+</Select.Item>
@@ -196,7 +196,7 @@ function IndexPopup() {
         </SelectArea>
       </Content>
       <Footer>
-        Sources on{' '}
+        Version 2.5 | Sources on{' '}
         <Link href="https://github.com/Kwabang/K-Twitch-Bypass" target="_blank">
           Github
         </Link>
