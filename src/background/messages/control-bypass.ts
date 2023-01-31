@@ -94,6 +94,10 @@ async function enableBypass() {
                     key: 'force_segment_node',
                     value: currentCDN,
                   },
+                  {
+                    key: 'force_manifest_node',
+                    value: 'video-weaver.sel03'
+                  }
                 ],
               },
             },
